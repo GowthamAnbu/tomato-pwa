@@ -14,6 +14,7 @@ export class HomePage {
   city: Icity;
   gender:any;
   collection: CollectionData;
+  restaurants;
   constructor(public navCtrl: NavController, private hsp: HomeServiceProvider) {
     this.cities =[
       {
@@ -125,7 +126,8 @@ export class HomePage {
 
   private _getLocation() {
     navigator.geolocation.getCurrentPosition( data => {
-      this._getDataByLocation(data.coords.latitude, data.coords.longitude);
+      this._getCityDetails(data.coords.latitude, data.coords.longitude);
+      // this._getDataByLocation(data.coords.latitude, data.coords.longitude);
     }, err => {
       console.log('error getting the location')
     });
@@ -139,6 +141,31 @@ export class HomePage {
     }, err => {
       console.log(err);
     });
+  }
+
+  private _getCityDetails(lat: number, lon: number) {
+    this.hsp.getCityDetails(lat,lon)
+    .subscribe( data => {
+      // console.log(data[0].id);
+      this._getRestaurants(data[0].id);
+    },err => {
+      console.log(err);
+    })
+  }
+
+  private _getRestaurants(res_id: number) {
+    this.hsp.getRestaurantsById(res_id)
+    .subscribe(data => {
+      this.restaurants = data['best_rated_restaurant']
+     console.log(this.restaurants);
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  moveTo(res_id: number) {
+    console.log(res_id);
+    // window.location.href = url;
   }
 }
 

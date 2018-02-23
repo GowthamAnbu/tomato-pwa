@@ -36,6 +36,24 @@ export class HomeServiceProvider {
     .catch(this.handleError);
   }
 
+  getCityDetails(lat: number,lon: number) : Observable<Icity>{
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('user-key','65a6618a939f0e3a4ed07dfa3b4cbb07');
+    const options: {
+      headers?: HttpHeaders,
+      observe?: 'body',
+      params?: HttpParams,
+      reportProgress?: boolean,
+      responseType?: 'json',
+      withCredentials?: boolean
+    } = {
+      headers: headers,
+    };
+    return this.http.get(`https://developers.zomato.com/api/v2.1/cities?lat=${lat}&lon=${lon}`, options)
+    .map( data => {
+      return data['location_suggestions'];
+    })
+    .catch(this.handleError);
+  }
 
   getDataByLocation(lat: number, lon: number): Observable<CollectionData> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('user-key','65a6618a939f0e3a4ed07dfa3b4cbb07');
@@ -51,6 +69,22 @@ export class HomeServiceProvider {
     };
     return this.http.get(`https://developers.zomato.com/api/v2.1/collections?lat=${lat}&lon=${lon}`, options)
     .map( (data: CollectionData) => {return data.collections})
+    .catch(this.handleError);
+  }
+
+  getRestaurantsById(res_id: number) : Observable<Icity>{
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('user-key','65a6618a939f0e3a4ed07dfa3b4cbb07');
+    const options: {
+      headers?: HttpHeaders,
+      observe?: 'body',
+      params?: HttpParams,
+      reportProgress?: boolean,
+      responseType?: 'json',
+      withCredentials?: boolean
+    } = {
+      headers: headers,
+    };
+    return this.http.get(`https://developers.zomato.com/api/v2.1/location_details?entity_id=${res_id}&entity_type=city`, options)
     .catch(this.handleError);
   }
 

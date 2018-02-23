@@ -18,11 +18,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row *ngFor="let c of collection">
       <ion-item *ngIf="collection">
         <ion-col>
-          <img src="{{c.collection.image_url}}" alt="Title Image">
+          <img src="{{c.collection.image_url}}" alt="Title Image" (click)="moveTo(c.collection.url)" >
         </ion-col>
         <ion-col>
             {{c.collection.title}}
@@ -30,7 +30,22 @@
         </ion-col>
       </ion-item>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+  <ion-grid *ngIf="restaurants">
+      <ion-row *ngFor="let r of restaurants">
+        <ion-item>
+          <ion-col>
+            <img height="150" width="150" src="{{r.restaurant.featured_image}}" alt="No featured image" (click)="moveTo(r.restaurant.id)" >
+          </ion-col>
+          <ion-col>
+            Name :{{r.restaurant.name}}
+          </ion-col>
+          <ion-row>
+            popular cuisines: {{r.restaurant.cuisines}}
+          </ion-row>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
   <!-- <ion-list [virtualScroll]="collection" approxItemHeight="49px" approxItemWidth="50px">
       <ion-item *virtualItem="let item" >
         {{ item.collection.title }}
