@@ -17,7 +17,7 @@ export class HomeServiceProvider {
     console.log('Hello HomeProvider Provider');
   }
 
-  search(searchText: string) : Observable<any>{
+  search(searchText: string) : Observable<Icity>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('user-key','65a6618a939f0e3a4ed07dfa3b4cbb07');
     const options: {
       headers?: HttpHeaders,
@@ -36,6 +36,24 @@ export class HomeServiceProvider {
     .catch(this.handleError);
   }
 
+
+  getDataByLocation(lat: number, lon: number): Observable<CollectionData> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('user-key','65a6618a939f0e3a4ed07dfa3b4cbb07');
+    const options: {
+      headers?: HttpHeaders,
+      observe?: 'body',
+      params?: HttpParams,
+      reportProgress?: boolean,
+      responseType?: 'json',
+      withCredentials?: boolean
+    } = {
+      headers: headers,
+    };
+    return this.http.get(`https://developers.zomato.com/api/v2.1/collections?lat=${lat}&lon=${lon}`, options)
+    .map( (data: CollectionData) => {return data.collections})
+    .catch(this.handleError);
+  }
+
   private handleError(err: HttpErrorResponse) {
     let error: Error;
     if (err.status === 400) {
@@ -45,4 +63,33 @@ export class HomeServiceProvider {
     return Observable.throw(err.message);
   }
 
+}
+
+export interface Icity {
+  id: number;
+  name: string;
+  country_id: number;
+  country_name: string;
+  country_flag_url: string;
+  discovery_enabled: number;
+  has_new_ad_format:number;
+  is_state: string;
+  should_experiment_with: number;
+  state_code: string;
+  state_id: number;
+  state_name: string;
+}
+
+export interface Collection {
+  collection_id ?: number;
+  title ?:string;
+  url ?: string;
+  description ?: string;
+  image_url ?: string;
+  res_count ?: number;
+  share_url ?: string ;
+}
+
+export interface CollectionData {
+  collections : Array<Collection>;
 }

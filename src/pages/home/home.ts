@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { HomeServiceProvider } from "../../providers/home-service/home-service";
+import { HomeServiceProvider, Icity, CollectionData } from "../../providers/home-service/home-service";
+import 'rxjs/add/operator/catch';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -10,8 +11,9 @@ export class HomePage {
 
   cities;
   searchText;
-  city;
+  city: Icity;
   gender:any;
+  collection: CollectionData;
   constructor(public navCtrl: NavController, private hsp: HomeServiceProvider) {
     this.cities =[
       {
@@ -100,6 +102,7 @@ export class HomePage {
       }
     ];
     this.searchText = '';
+    this._getLocation();
   }
 
   search() {
@@ -111,12 +114,31 @@ export class HomePage {
           return;
         }
         this.city = data[0];
+        console.log(this.city);
       }, err => {
         console.log(err);
       });
     } else {
       console.log('err');
     }
+  }
+
+  private _getLocation() {
+    navigator.geolocation.getCurrentPosition( data => {
+      this._getDataByLocation(data.coords.latitude, data.coords.longitude);
+    }, err => {
+      console.log('error getting the location')
+    });
+  }
+
+  private _getDataByLocation(lat: number, lon: number) {
+    this.hsp.getDataByLocation(lat,lon)
+    .subscribe( data => {
+      this.collection = data;
+      console.log(this.collection);
+    }, err => {
+      console.log(err);
+    });
   }
 }
 
