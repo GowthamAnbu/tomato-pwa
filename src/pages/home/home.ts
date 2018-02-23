@@ -81,7 +81,7 @@ export class HomePage {
   }
 
   moveTo(res_id: number) {
-    this.navCtrl.push(ResturantDetailPage,{res_id})
+    this.navCtrl.push(ResturantDetailPage,{res_id:res_id})
   }
 }
 

@@ -23,7 +23,7 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
     IonicModule.forRoot(MyApp, {}, {
       links:[
         {component:HomePage, name:'homepage'},
-        {component: ResturantDetailPage, name: 'restaurantDetailPage'}
+        {component: ResturantDetailPage, name: 'restaurantDetailPage', segment:'restaurantDetailPage/:res_id'}
       ]
     })
   ],

@@ -15,21 +15,22 @@ import { RestaurantServiceProvider } from "../../providers/restaurant-service/re
 })
 export class ResturantDetailPage {
 
+  details:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private rsp: RestaurantServiceProvider) {
   }
 
   ionViewDidLoad() {
+    console.log("kasdjfhnkj;fgk");
     console.log(this.navParams.get('res_id'));
     this._getRestaurantDetails();
   }
 
-
-
-
   private _getRestaurantDetails() {
     this.rsp.getRestaurantsById(this.navParams.get('res_id'))
       .subscribe(data => {
-        console.log(data);
+        this.details = data;
+        console.log(this.details);
       }, err => {
         console.log(err);
       });

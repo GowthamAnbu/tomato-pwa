@@ -14,5 +14,24 @@
 
 
 <ion-content padding>
-
+    <ion-grid>
+        <ion-row>
+        <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngIf="details" >
+          <ion-card>
+            <img src="{{details.featured_image}}" *ngIf="details.featured_image !== '';else elsecontent" />
+            <ng-template #elsecontent>
+                no image<img src="http://localhost:8100/assets/icon/favicon.ico"/>
+            </ng-template>
+            <ion-card-content>
+              <ion-card-title>
+                {{details.name}}
+              </ion-card-title>
+              <p>
+                {{details.cuisines}}
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
 </ion-content>
