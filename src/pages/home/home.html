@@ -35,17 +35,17 @@
     <ion-grid>
       <ion-row>
       <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurants">
-        <ion-card>
-          <img src="{{r.restaurant.featured_image}}" (click)="moveTo(r.restaurant.id)" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
+        <ion-card (click)="moveTo(r.restaurant.id)">
+          <img src="{{r.restaurant.featured_image}}" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
           <ng-template #elsecontent>
-              no image<!-- <img src="http://localhost:8100/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+            no image<!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
           </ng-template>
           <ion-card-content>
             <ion-card-title>
               {{r.restaurant.name}}
             </ion-card-title>
             <p>
-              {{r.restaurant.cuisines}}
+              Cuisines:{{r.restaurant.cuisines}}
             </p>
           </ion-card-content>
         </ion-card>
