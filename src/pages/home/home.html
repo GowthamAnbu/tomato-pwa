@@ -1,13 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Basic Ionic
+      Home
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -18,20 +17,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-grid>
-    <ion-row *ngFor="let c of collection">
-      <ion-item *ngIf="collection">
-        <ion-col>
-          <img src="{{c.collection.image_url}}" alt="Title Image" (click)="moveTo(c.collection.url)" >
-        </ion-col>
-        <ion-col>
-            {{c.collection.title}}
-            {{c.collection.description}}
-        </ion-col>
-      </ion-item>
-    </ion-row>
-  </ion-grid> -->
-  <ion-grid *ngIf="restaurants">
+  <!-- <ion-grid *ngIf="restaurants">
       <ion-row *ngFor="let r of restaurants">
         <ion-item>
           <ion-col>
@@ -45,10 +31,25 @@
           </ion-row>
         </ion-item>
       </ion-row>
+    </ion-grid> -->
+    <ion-grid>
+      <ion-row>
+      <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurants">
+        <ion-card>
+          <img src="{{r.restaurant.featured_image}}" (click)="moveTo(r.restaurant.id)" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
+          <ng-template #elsecontent>
+              no image<!-- <img src="http://localhost:8100/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+          </ng-template>
+          <ion-card-content>
+            <ion-card-title>
+              {{r.restaurant.name}}
+            </ion-card-title>
+            <p>
+              {{r.restaurant.cuisines}}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      </ion-row>
     </ion-grid>
-  <!-- <ion-list [virtualScroll]="collection" approxItemHeight="49px" approxItemWidth="50px">
-      <ion-item *virtualItem="let item" >
-        {{ item.collection.title }}
-      </ion-item>
-  </ion-list> -->
 </ion-content>
