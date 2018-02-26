@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { HomeServiceProvider } from '../providers/home-service/home-service';
 import { ResturantDetailPage } from "../pages/resturant-detail/resturant-detail";
 import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HomeServiceProvider,
     RestaurantServiceProvider

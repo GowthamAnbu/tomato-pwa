@@ -1,23 +1,26 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
+    <div class="homeDiv-custom">
+        <div class="search-bar">
+            <ion-col class="margin:20px">
+                <div class="logo-box search-bar">
+                    <img src="http://www.techaffinity.com/images/techaffinity-logo.png" />
+                </div>
+            </ion-col>
+            <ion-row>
+                <ion-col col-3>
+                    <ion-searchbar color="primary" [(ngModel)]="searchText1" placeholder="Search by city name"></ion-searchbar>
+                </ion-col>
+                <ion-col col-7>
+                    <ion-searchbar color="primary" [(ngModel)]="searchText" placeholder="Search restaurant"></ion-searchbar>
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <button ion-button (click)="search()" color="primary">Search</button>
+                </ion-col>
+            </ion-row>
+        </div>
+    </div>
 
-<ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-searchbar color="primary" [(ngModel)]="searchText" placeholder="Search by city name"></ion-searchbar>
-      </ion-col>
-      <ion-col>
-        <button ion-button (click)="search()" color="danger">Search</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <!-- <ion-grid *ngIf="restaurants">
+    <!-- <ion-grid *ngIf="restaurants">
       <ion-row *ngFor="let r of restaurants">
         <ion-item>
           <ion-col>
@@ -32,24 +35,32 @@
         </ion-item>
       </ion-row>
     </ion-grid> -->
-    <ion-grid>
-      <ion-row>
-      <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurants">
-        <ion-card (click)="moveTo(r.restaurant.id)">
-          <img src="{{r.restaurant.featured_image}}" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
-          <ng-template #elsecontent>
-            no image<!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
-          </ng-template>
-          <ion-card-content>
-            <ion-card-title>
-              {{r.restaurant.name}}
-            </ion-card-title>
-            <p>
-              Cuisines:{{r.restaurant.cuisines}}
-            </p>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      </ion-row>
+
+    <ion-grid class="custom-grid">
+        <ng-template #loader>
+            <div class="absolute-vertical">
+                <ion-spinner class="Absolute-Center" text-center class="ios"></ion-spinner>
+            </div>
+        </ng-template>
+        <ion-row *ngIf="restaurants; else loader">
+            <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurants">
+                <ion-card (click)="moveTo(r.restaurant.id)">
+                    <img src="{{r.restaurant.featured_image}}" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
+                    <ng-template #elsecontent>
+                        no image
+                        <!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+                    </ng-template>
+                    <ion-card-content>
+                        <ion-card-title>
+                            {{r.restaurant.name}}
+                        </ion-card-title>
+                        <p>
+                            Cuisines:{{r.restaurant.cuisines}}
+                        </p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
     </ion-grid>
+
 </ion-content>

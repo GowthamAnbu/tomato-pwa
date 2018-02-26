@@ -6,9 +6,9 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Resturant Detail</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>Resturant Detail</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
@@ -16,40 +16,41 @@
 <ion-content padding>
     <ion-grid *ngIf="details">
         <ion-row>
-        <ion-col col-12 col-md-6 >
-          <ion-card>
-            <img src="{{details.featured_image}}" *ngIf="details.featured_image !== '';else elsecontent" />
-            <ng-template #elsecontent>
-              no image<!-- <img src="http://localhost:8100/assets/icon/favicon.ico"/> -->
-            </ng-template>
-            <ion-card-content>
-              <ion-card-title>
-                {{details.name}}
-              </ion-card-title>
-              <p>
-                Average Cost for two:{{details.currency}}{{details.average_cost_for_two}}
-              </p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col col-12 col-md-6  *ngIf="details" >
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>
-                Address
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              {{details.location.address}}
-              <p>
-                Location - {{details.location.locality}}
-              </p>
-              <p>
-                City - {{details.location.city}}
-              </p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
+            <ion-col col-12 col-md-6>
+                <ion-card>
+                    <img src="{{details.featured_image}}" *ngIf="details.featured_image !== '';else elsecontent" />
+                    <ng-template #elsecontent>
+                        no image
+                        <!-- <img src="http://localhost:8100/assets/icon/favicon.ico"/> -->
+                    </ng-template>
+                    <ion-card-content>
+                        <ion-card-title>
+                            {{details.name}}
+                        </ion-card-title>
+                        <p>
+                            Average Cost for two:{{details.currency}}{{details.average_cost_for_two}}
+                        </p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col col-12 col-md-6 *ngIf="details">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>
+                            Address
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{details.location.address}}
+                        <p>
+                            Location - {{details.location.locality}}
+                        </p>
+                        <p>
+                            City - {{details.location.city}}
+                        </p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
         </ion-row>
-      </ion-grid>
+    </ion-grid>
 </ion-content>

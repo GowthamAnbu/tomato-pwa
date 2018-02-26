@@ -4,6 +4,8 @@ import { NavController } from 'ionic-angular';
 import { HomeServiceProvider, Icity, CollectionData } from "../../providers/home-service/home-service";
 import 'rxjs/add/operator/catch';
 import { ResturantDetailPage } from '../resturant-detail/resturant-detail';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -15,36 +17,56 @@ export class HomePage {
   gender:any;
   collection: CollectionData;
   restaurants;
-  constructor(public navCtrl: NavController, private hsp: HomeServiceProvider) {
+  searchText1;
+  constructor(public navCtrl: NavController, private hsp: HomeServiceProvider,private camera: Camera) {
     this.searchText = '';
   }
 
   ionViewDidLoad() {
     this._getLocation();
   }
+  openCamera(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64:
+     let base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
+  }
+ 
 
   search() {
-    if(this.searchText !== '') {
-      this.hsp.search(this.searchText)
-      .subscribe(data =>{
-        if(data[0] === undefined) {
-          console.log('no city is found for the search');
-          return;
-        }
-        this.city = data[0];
-        console.log(this.city);
-      }, err => {
-        console.log(err);
-      });
-    } else {
-      console.log('err');
-    }
+    this.openCamera();
+    // if(this.searchText !== '') {
+    //   this.hsp.search(this.searchText)
+    //   .subscribe(data =>{
+    //     if(data[0] === undefined) {
+    //       console.log('no city is found for the search');
+    //       return;
+    //     }
+    //     this.city = data[0];
+    //     console.log(this.city);
+    //   }, err => {
+    //     console.log(err);
+    //   });
+    // } else {
+    //   console.log('err');
+    // }
   }
 
   private _getLocation() {
+  //  this._getCityDetails(13.083889, 80.27);
     navigator.geolocation.getCurrentPosition( data => {
-      this._getCityDetails(data.coords.latitude, data.coords.longitude);
-      // this._getDataByLocation(data.coords.latitude, data.coords.longitude);
+      //this._getCityDetails(13.083889, 80.27);
+       this._getCityDetails(data.coords.latitude, data.coords.longitude);
     }, err => {
       console.log('error getting the location')
     });
