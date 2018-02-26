@@ -20,6 +20,32 @@
       </div>
   </div>
 
+<ion-row *ngIf="resultedRestaurants" >
+  search Results for : <span [style.color]="'green'">{{resultedSearch}}</span>
+</ion-row>
+
+<ion-grid class="custom-grid" *ngIf="resultedRestaurants">
+  <ion-row>
+    <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let resultR of resultedRestaurants">
+      <ion-card >
+        <img src="{{resultR.restaurant.featured_image}}" *ngIf="resultR.restaurant.featured_image !== '';else elsecontent" />
+        <ng-template #elsecontent>
+          no image
+          <!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+        </ng-template>
+        <ion-card-content>
+          <ion-card-title>
+            {{resultR.restaurant.name}}
+          </ion-card-title>
+          <p>
+            Cuisines:{{resultR.restaurant.cuisines}}
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
   <ion-row *ngIf="restaurants && city" >
   Restaurants by Location: <span [style.color]="'green'">{{city.name}}</span>
   </ion-row>

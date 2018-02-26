@@ -19,7 +19,8 @@ export class HomePage {
   restaurants;
   searchByCityName;
   categories;
-  restaurantsByName: Array<any>;
+  resultedRestaurants: Array<any>;
+  resultedSearch: string;
   constructor(
     public navCtrl: NavController,
     private hsp: HomeServiceProvider,
@@ -58,6 +59,7 @@ export class HomePage {
   }
 
   search() {
+    this.resultedRestaurants = undefined;
     if(this.searchByCityName !== '' || this.searchByRestaurantName !== '') {
       if ( this.searchByCityName !== '' && this.searchByRestaurantName !== '') {
         console.log('city name and restaurant name');
@@ -80,8 +82,9 @@ export class HomePage {
         if(data.length === 0 ) {
           this.presentToast('no restaurants found for this search', 'top');
         } else {
-          this.restaurantsByName = data.slice(0,10);
-          console.log(this.restaurantsByName);
+          this.resultedRestaurants = data.slice(0,10);
+          this.resultedSearch = this.searchByRestaurantName;
+          console.log(this.resultedRestaurants);
         }
       }, err => {
         console.log(err);
@@ -128,8 +131,9 @@ export class HomePage {
           console.log('restaurant name is failed so calling by city name')
           this.getByCityName(); // special case
         } else {
-          data.slice(0,10);
-          console.log(data.slice(0,10));
+          this.resultedRestaurants =  data.slice(0,10);
+          this.resultedSearch = this.searchByRestaurantName;
+          console.log(this.resultedRestaurants);
         }
       }, err => {
         console.log(err);
