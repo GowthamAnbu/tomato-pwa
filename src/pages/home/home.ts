@@ -12,19 +12,20 @@ import { ResturantDetailPage } from '../resturant-detail/resturant-detail';
 })
 export class HomePage {
 
-  searchText;
+  searchByRestaurantName;
   city: Icity;
   gender:any;
   collections: CollectionData;
   restaurants;
   searchByCityName;
   categories;
-
+  restaurantsByName: Array<any>;
   constructor(
     public navCtrl: NavController,
     private hsp: HomeServiceProvider,
     private toastCtrl: ToastController) {
-    this.searchText = '';
+    this.searchByCityName = '';
+    this.searchByRestaurantName = '';
   }
 
   presentToast(message: string, position: string) {
@@ -57,22 +58,82 @@ export class HomePage {
   }
 
   search() {
-    if(this.searchByCityName !== undefined) {
-      this.hsp.getCityDetailsByCityName(this.searchByCityName)
-      .subscribe(data =>{
-        if(data[0] === undefined) {
-          this.presentToast('no city found for this search', 'top');
-          console.log('no city is found for this search');
-          return;
+    if(this.searchByCityName !== '' || this.searchByRestaurantName !== '') {
+      if ( this.searchByCityName !== '' && this.searchByRestaurantName !== '') {
+        console.log('city name and restaurant name');
+        this._getCityId(this.searchByCityName);
+      } else if ( this.searchByCityName !== '') {
+        console.log('city name');
+        this.getByCityName();
+      } else {
+        console.log('restaurant name');
+        this.getByRestaurantName();
+      }
+    } else {
+      this.presentToast('please fill the search bar', 'top');
+    }
+  }
+
+  private getByRestaurantName() {
+    this.hsp.getRestaurantsByName(this.searchByRestaurantName)
+      .subscribe(data => {
+        if(data.length === 0 ) {
+          this.presentToast('no restaurants found for this search', 'top');
+        } else {
+          this.restaurantsByName = data.slice(0,10);
+          console.log(this.restaurantsByName);
         }
-        this.city = data[0];
-        this._getRestaurants(this.city.id);
       }, err => {
         console.log(err);
       });
-    } else {
-      this.presentToast('please type the city name', 'top');
-    }
+  }
+
+  private getByCityName() {
+    this.hsp.getCityDetailsByCityName(this.searchByCityName)
+    .subscribe(data => {
+      if (data[0] === undefined) {
+        this.presentToast('no city found for this search', 'top');
+        console.log('no city is found for this search');
+        return;
+      }
+      this.city = data[0];
+      this._getRestaurants(this.city.id);
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  private _getCityId(cityName: string) {
+    this.hsp.getCityDetailsByName(cityName)
+    .subscribe( (data:Array<any>) => {
+      if( data.length === 0) {
+        console.log('no city found');
+        // this.presentToast('no restaurants found for this search', 'top');
+        console.log('city id is failed so calling by restaurant name');
+        this.getByRestaurantName(); // special case
+      } else {
+        console.log(data[0].id);
+        this.getByNameAndId(data[0].id);
+      }
+    },err => {
+      console.log(err);
+    })
+  }
+
+  private getByNameAndId(cityId: number) {
+    this.hsp.getRestaurantsByNameAndCityName(cityId, this.searchByRestaurantName)
+      .subscribe(data => {
+        if (data.length === 0) {
+          // this.presentToast('no restaurant found for this search', 'top');
+          console.log('restaurant name is failed so calling by city name')
+          this.getByCityName(); // special case
+        } else {
+          data.slice(0,10);
+          console.log(data.slice(0,10));
+        }
+      }, err => {
+        console.log(err);
+      });
   }
 
   private _getLocation() {
@@ -87,6 +148,7 @@ export class HomePage {
     this.hsp.getCityDetails(lat,lon)
     .subscribe( data => {
       this.city = data[0];
+      this.searchByCityName = this.city.name;
       this._getRestaurants(this.city.id);
       this._getCollection(this.city.id);
     },err => {
