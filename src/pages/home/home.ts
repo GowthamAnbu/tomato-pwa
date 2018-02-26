@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 import { HomeServiceProvider, Icity, CollectionData } from "../../providers/home-service/home-service";
 import 'rxjs/add/operator/catch';
@@ -14,34 +15,63 @@ export class HomePage {
   searchText;
   city: Icity;
   gender:any;
-  collection: CollectionData;
+  collections: CollectionData;
   restaurants;
   searchByCityName;
-  constructor(public navCtrl: NavController, private hsp: HomeServiceProvider) {
+  categories;
+
+  constructor(
+    public navCtrl: NavController,
+    private hsp: HomeServiceProvider,
+    private toastCtrl: ToastController) {
     this.searchText = '';
+  }
+
+  presentToast(message: string, position: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: position
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
   ionViewDidLoad() {
     this._getLocation();
+    this._getCategories();
   }
 
 
+  private _getCategories() {
+    this.hsp.getCategories()
+      .subscribe(data => {
+        this.categories = data;
+      }, err => {
+        console.log(err);
+    });
+  }
+
   search() {
-    if(this.searchByCityName !== '') {
+    if(this.searchByCityName !== undefined) {
       this.hsp.getCityDetailsByCityName(this.searchByCityName)
       .subscribe(data =>{
         if(data[0] === undefined) {
-          console.log('no city is found for the search');
+          this.presentToast('no city found for this search', 'top');
+          console.log('no city is found for this search');
           return;
         }
         this.city = data[0];
-        console.log(this.city.id);
         this._getRestaurants(this.city.id);
       }, err => {
         console.log(err);
       });
     } else {
-      console.log('err');
+      this.presentToast('please type the city name', 'top');
     }
   }
 
@@ -53,32 +83,30 @@ export class HomePage {
     });
   }
 
-  private _getDataByLocation(lat: number, lon: number) {
-    this.hsp.getDataByLocation(lat,lon)
-    .subscribe( data => {
-      this.collection = data;
-      // console.log(this.collection);
-    }, err => {
-      console.log(err);
-    });
-  }
-
   private _getCityDetails(lat: number, lon: number) {
     this.hsp.getCityDetails(lat,lon)
     .subscribe( data => {
       this.city = data[0];
-      // console.log(data[0]);
       this._getRestaurants(this.city.id);
+      this._getCollection(this.city.id);
     },err => {
       console.log(err);
     })
+  }
+
+  private _getCollection(city_id: number) {
+    this.hsp.getCollectionByCityId(city_id)
+    .subscribe( data => {
+      this.collections = data;
+    }, err => {
+      console.log(err);
+    });
   }
 
   private _getRestaurants(city_id: number) {
     this.hsp.getRestaurantsById(city_id)
     .subscribe(data => {
       this.restaurants = data['best_rated_restaurant']
-    //  console.log(this.restaurants);
     }, err => {
       console.log(err);
     })

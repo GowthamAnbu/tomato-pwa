@@ -100,7 +100,25 @@ export class HomeServiceProvider {
     } = {
       headers: headers,
     };
-    return this.http.get(`https://developers.zomato.com/api/v2.1/collections?city_id=${cityId}`, options)
+    return this.http.get(`https://developers.zomato.com/api/v2.1/collections?city_id=${cityId}&count=6`, options)
+    .map( data => data['collections'])
+    .catch(this.handleError);
+  }
+
+  getCategories(): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('user-key','65a6618a939f0e3a4ed07dfa3b4cbb07');
+    const options: {
+      headers?: HttpHeaders,
+      observe?: 'body',
+      params?: HttpParams,
+      reportProgress?: boolean,
+      responseType?: 'json',
+      withCredentials?: boolean
+    } = {
+      headers: headers,
+    };
+    return this.http.get(`https://developers.zomato.com/api/v2.1/categories`, options)
+    .map( data => data['categories'])
     .catch(this.handleError);
   }
 
