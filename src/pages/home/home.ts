@@ -101,6 +101,7 @@ export class HomePage {
       }
       this.city = data[0];
       this._getRestaurants(this.city.id);
+      this._getCollection(this.city.id);
     }, err => {
       console.log(err);
     });
@@ -115,8 +116,11 @@ export class HomePage {
         console.log('city id is failed so calling by restaurant name');
         this.getByRestaurantName(); // special case
       } else {
-        console.log(data[0].id);
-        this.getByNameAndId(data[0].id);
+        this.city = data[0];
+        console.log(this.city.id);
+        this.getByNameAndId(this.city.id);
+        this._getRestaurants(this.city.id);
+        this._getCollection(this.city.id);
       }
     },err => {
       console.log(err);
