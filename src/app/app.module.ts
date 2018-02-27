@@ -13,6 +13,7 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
 import { RestaurantListPage } from "../pages/restaurant-list/restaurant-list";
 import { LoginPage } from "../pages/login/login";
 import { SignupPage } from "../pages/signup/signup";
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SignupPage } from "../pages/signup/signup";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HomeServiceProvider,
-    RestaurantServiceProvider
+    RestaurantServiceProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}
