@@ -44,6 +44,24 @@ export class RestaurantServiceProvider {
     .catch(this.handleError);
   }
 
+  getRestaurantsByCategoryId(restaurantList: any) : Observable<any>{
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('user-key','65a6618a939f0e3a4ed07dfa3b4cbb07');
+    const options: {
+      headers?: HttpHeaders,
+      observe?: 'body',
+      params?: HttpParams,
+      reportProgress?: boolean,
+      responseType?: 'json',
+      withCredentials?: boolean
+    } = {
+      headers: headers,
+    };
+    return this.http.get(`https://developers.zomato.com/api/v2.1/search?entity_id=${restaurantList.city_id}&entity_type=city&category=${restaurantList.category_id}`,
+    options)
+    .map( data => {return data['restaurants'];})
+    .catch(this.handleError);
+  }
+
   private handleError(err: HttpErrorResponse) {
     let error: Error;
     if (err.status === 400) {

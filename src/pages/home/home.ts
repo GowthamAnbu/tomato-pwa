@@ -187,8 +187,13 @@ export class HomePage {
     this.navCtrl.push(RestaurantDetailPage,{res_id:res_id});
   }
 
-  moveToRestaurantList(collection_id: number) {
+  moveToRestaurantListByCollection(collection_id: number) {
     let restaurantList: Object = { collection_id:collection_id, city_id:this.city.id }
+    this.navCtrl.push(RestaurantListPage, {restaurant_list: restaurantList});
+  }
+
+  moveToRestaurantListByCategory(category_id: number) {
+    let restaurantList: Object = { category_id:category_id, city_id:this.city.id }
     this.navCtrl.push(RestaurantListPage, {restaurant_list: restaurantList});
   }
 }

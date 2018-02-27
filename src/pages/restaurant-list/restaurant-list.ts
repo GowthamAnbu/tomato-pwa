@@ -19,15 +19,28 @@ export class RestaurantListPage {
   ionViewDidLoad() {
     this.navRestaurantList = this.navParams.get('restaurant_list')
     if (this.navRestaurantList.hasOwnProperty('category_id')) {
-      console.log('category call');
+    this._getRestaurantByCategory();
     } else {
-      this.rsp.getRestaurantsByCollectionId(this.navRestaurantList)
+      this._getRestaurantByCollection();
+    }
+  }
+
+  private _getRestaurantByCategory() {
+    this.rsp.getRestaurantsByCategoryId(this.navRestaurantList)
       .subscribe(data => {
-       this.restaurantList = data.slice(0,10);
+        this.restaurantList = data.slice(0, 10);
       }, err => {
         console.log(err);
       });
-    }
+  }
+
+  private _getRestaurantByCollection() {
+    this.rsp.getRestaurantsByCollectionId(this.navRestaurantList)
+    .subscribe(data => {
+      this.restaurantList = data.slice(0, 10);
+    }, err => {
+      console.log(err);
+    });
   }
 
   moveToRestaurantDetail(res_id: number) {
