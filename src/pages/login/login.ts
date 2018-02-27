@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -14,10 +15,28 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
+  login = { email: '', password: '' };
+  submitted = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
+  }
+
+  onLogin(form: NgForm) {
+    this.submitted = true;
+
+    if (form.valid) {
+      console.log(this.login.email)
+      // this.userData.login();
+      // this.navCtrl.push(TabsPage);
+    }
+  }
+
+  onSignup() {
+    console.log('signup');
+    // this.navCtrl.push(SignupPage);
   }
 
 }
