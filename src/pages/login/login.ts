@@ -1,26 +1,21 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { AuthProvider } from "../../providers/auth/auth";
 import { HomePage } from '../home/home';
 import { ToastController } from 'ionic-angular';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
 
-  login = { email: '', password: '' };
-  submitted = false;
+  login: FormGroup;
+  email: FormControl;
+  password: FormControl;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +25,30 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    this._setFormValues();
+  }
+
+  isValidEmail() {
+    return this.email.valid || this.email.untouched;
+  }
+
+  isValidPassword() {
+    return this.password.valid || this.password.untouched;
+  }
+
+  private _setFormValues() {
+    this.email = new FormControl('', [
+      Validators.required,
+      Validators.pattern(EMAIL_REGEX)
+    ]);
+    this.password = new FormControl('', [
+      Validators.required,
+      Validators.minLength(8)
+    ]);
+    this.login = new FormGroup({
+      email: this.email,
+      password: this.password
+    });
   }
 
   presentToast(message: string, position: string) {
@@ -46,16 +65,17 @@ export class LoginPage {
     toast.present();
   }
 
-  onLogin(form: NgForm) {
-    this.submitted = true;
-    if (form.valid) {
-      this.ap.login(this.login.email, this.login.password)
+  onLogin(values) {
+    if (this.login.valid) {
+      this.ap.login(values)
       .subscribe(data => {
         this.navCtrl.push(HomePage);
       }, err => {
         console.log(err.error.message);
         this.presentToast(err.error.message, 'top');
       });
+    } else {
+      this.presentToast('Please fill out the Login Form correctly', 'top');
     }
   }
 

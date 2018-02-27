@@ -14,10 +14,9 @@ export class AuthProvider {
   constructor(public http: HttpClient) {
   }
 
-  login(email: string, password: string): Observable<any> {
+  login(payload: object): Observable<any> {
     this.api_url = `http://localhost:3030/login`;
-    let body = {email: email, password: password};
-    return this.http.post(this.api_url, body)
+    return this.http.post(this.api_url, payload)
     .do(data => {
       localStorage.setItem('userProfile', JSON.stringify(data));
     })
