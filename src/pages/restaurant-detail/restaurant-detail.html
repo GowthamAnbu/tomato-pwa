@@ -1,13 +1,18 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Resturant Detail</ion-title>
+    <ion-title>Restaurant Detail</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <ion-grid *ngIf="details">
-    <ion-row>
+  <ion-grid class="custom-grid">
+    <ng-template #loader>
+      <div class="absolute-vertical">
+        <ion-spinner class="Absolute-Center" text-center class="ios"></ion-spinner>
+      </div>
+    </ng-template>
+    <ion-row *ngIf="details; else loader">
       <ion-col col-12 col-md-6>
         <ion-card>
           <img src="{{details.featured_image}}" *ngIf="details.featured_image !== '';else elsecontent" />

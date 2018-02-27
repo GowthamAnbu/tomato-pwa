@@ -4,10 +4,10 @@ import { NavController, NavParams } from 'ionic-angular';
 import { RestaurantServiceProvider } from "../../providers/restaurant-service/restaurant-service";
 
 @Component({
-  selector: 'page-resturant-detail',
-  templateUrl: 'resturant-detail.html',
+  selector: 'page-restaurant-detail',
+  templateUrl: 'restaurant-detail.html',
 })
-export class ResturantDetailPage {
+export class RestaurantDetailPage {
 
   details:any;
 

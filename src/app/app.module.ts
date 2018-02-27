@@ -8,14 +8,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { HomeServiceProvider } from '../providers/home-service/home-service';
-import { ResturantDetailPage } from "../pages/resturant-detail/resturant-detail";
+import { RestaurantDetailPage } from "../pages/restaurant-detail/restaurant-detail";
 import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ResturantDetailPage
+    RestaurantDetailPage
   ],
   imports: [
     BrowserModule,
@@ -23,7 +23,7 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
     IonicModule.forRoot(MyApp, {}, {
       links:[
         {component:HomePage, name:'homepage'},
-        {component: ResturantDetailPage, name: 'restaurantDetailPage', segment:'restaurantDetailPage/:res_id'}
+        {component: RestaurantDetailPage, name: 'restaurantDetailPage', segment:'restaurantDetailPage/:res_id'}
       ]
     })
   ],
@@ -31,7 +31,7 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
   entryComponents: [
     MyApp,
     HomePage,
-    ResturantDetailPage
+    RestaurantDetailPage
   ],
   providers: [
     StatusBar,
