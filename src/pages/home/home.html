@@ -30,8 +30,7 @@
       <ion-card >
         <img src="{{resultR.restaurant.featured_image}}" *ngIf="resultR.restaurant.featured_image !== '';else elsecontent" />
         <ng-template #elsecontent>
-          no image
-          <!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+          <img src="/assets/imgs/default.png"/>
         </ng-template>
         <ion-card-content>
           <ion-card-title>
@@ -61,8 +60,7 @@
           <ion-card (click)="moveTo(r.restaurant.id)">
             <img src="{{r.restaurant.featured_image}}" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
             <ng-template #elsecontent>
-              no image
-              <!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+              <img src="/assets/imgs/default.png"/>
             </ng-template>
             <ion-card-content>
               <ion-card-title>
@@ -97,8 +95,7 @@
           <ion-card>
             <img src="{{c.collection.image_url}}" *ngIf="c.collection.image_url !== '';else elsecontent" />
             <ng-template #elsecontent>
-              no image
-              <!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+              <img src="/assets/imgs/default.png"/>
             </ng-template>
             <ion-card-content>
               <ion-card-title>

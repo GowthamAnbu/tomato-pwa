@@ -1,56 +1,100 @@
-<!--
-  Generated template for the ResturantDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-    <ion-navbar color="primary">
-        <ion-title>Resturant Detail</ion-title>
-    </ion-navbar>
-
+  <ion-navbar color="primary">
+    <ion-title>Resturant Detail</ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-    <ion-grid *ngIf="details">
-        <ion-row>
-            <ion-col col-12 col-md-6>
-                <ion-card>
-                    <img src="{{details.featured_image}}" *ngIf="details.featured_image !== '';else elsecontent" />
-                    <ng-template #elsecontent>
-                        no image
-                        <!-- <img src="http://localhost:8100/assets/icon/favicon.ico"/> -->
-                    </ng-template>
-                    <ion-card-content>
-                        <ion-card-title>
-                            {{details.name}}
-                        </ion-card-title>
-                        <p>
-                            Average Cost for two:{{details.currency}}{{details.average_cost_for_two}}
-                        </p>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-            <ion-col col-12 col-md-6 *ngIf="details">
-                <ion-card>
-                    <ion-card-header>
-                        <ion-card-title>
-                            Address
-                        </ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                        {{details.location.address}}
-                        <p>
-                            Location - {{details.location.locality}}
-                        </p>
-                        <p>
-                            City - {{details.location.city}}
-                        </p>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+  <ion-grid *ngIf="details">
+    <ion-row>
+      <ion-col col-12 col-md-6>
+        <ion-card>
+          <img src="{{details.featured_image}}" *ngIf="details.featured_image !== '';else elsecontent" />
+          <ng-template #elsecontent>
+            <img src="/assets/imgs/default.png"/>
+          </ng-template>
+          <ion-card-content>
+            <ion-card-title>
+              {{details.name}}
+            </ion-card-title>
+            <p>
+              Average Cost for two:{{details.currency}}{{details.average_cost_for_two}} -
+            <span [ngSwitch]="details.price_range">
+            <span *ngSwitchCase="5" [style.color]="'red'" [style.background-color]="'black'">
+            Very High
+            </span>
+            <span *ngSwitchCase="4" [style.color]="'blue'" [style.background-color]="'white'">
+            High
+            </span>
+            <span *ngSwitchCase="3" [style.color]="'green'" [style.background-color]="'white'">
+            Average
+            </span>
+            <span *ngSwitchCase="2" [style.color]="'yellow'" [style.background-color]="'black'">
+            Low
+            </span>
+            <span *ngSwitchDefault [style.color]="'white'" [style.background-color]="'black'">
+            Very Low
+            </span>
+            </span>
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-md-6>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              Address
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{details.location.address}}
+            <p>
+              Location - {{details.location.locality}}
+            </p>
+            <p>
+              City - {{details.location.city}}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-md-6>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              Sneak Peak
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>
+              <span *ngIf="details.has_online_delivery === 1" [style.color]="'green'" >online delivery avilable</span>
+              <span *ngIf="details.has_online_delivery === 0" [style.color]="'red'" >no online delivery</span>
+            </p>
+            <p>
+              <span *ngIf="details.has_table_booking === 1" [style.color]="'green'" >online table booking avilable</span>
+              <span *ngIf="details.has_table_booking === 0" [style.color]="'red'" >no online table booking</span>
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-md-6>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                User Rating
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>
+                Rating:<span [style.color]="'green'" >{{details.user_rating.aggregate_rating}}</span>
+              </p>
+              <p>
+                Votes:<span [style.color]="'green'" >{{details.user_rating.votes}}</span>
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -2,12 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { RestaurantServiceProvider } from "../../providers/restaurant-service/restaurant-service";
-/**
- * Generated class for the ResturantDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-resturant-detail',
@@ -21,18 +15,16 @@ export class ResturantDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log("kasdjfhnkj;fgk");
-    console.log(this.navParams.get('res_id'));
-    this._getRestaurantDetails();
+    this._getRestaurantDetails(this.navParams.get('res_id'));
   }
 
-  private _getRestaurantDetails() {
-    this.rsp.getRestaurantsById(this.navParams.get('res_id'))
-      .subscribe(data => {
-        this.details = data;
-        console.log(this.details);
-      }, err => {
-        console.log(err);
-      });
+  private _getRestaurantDetails(res_id: number) {
+    this.rsp.getRestaurantsById(res_id)
+    .subscribe(data => {
+      this.details = data;
+      console.log(this.details);
+    }, err => {
+      console.log(err);
+    });
   }
 }
