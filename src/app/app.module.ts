@@ -11,13 +11,15 @@ import { HomeServiceProvider } from '../providers/home-service/home-service';
 import { RestaurantDetailPage } from "../pages/restaurant-detail/restaurant-detail";
 import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service';
 import { RestaurantListPage } from "../pages/restaurant-list/restaurant-list";
+import { LoginPage } from "../pages/login/login";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     RestaurantDetailPage,
-    RestaurantListPage
+    RestaurantListPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,7 @@ import { RestaurantListPage } from "../pages/restaurant-list/restaurant-list";
     IonicModule.forRoot(MyApp, {}, {
       links:[
         {component:HomePage, name:'homepage'},
+        {component:LoginPage, name:'loginpage'},
         {component: RestaurantDetailPage, name: 'restaurantDetailPage', segment:'restaurantDetailPage/:res_id'},
         {component: RestaurantListPage, name: 'restaurantListPage', segment:'restaurantListPage/:restaurant_list'}
       ]
@@ -34,6 +37,7 @@ import { RestaurantListPage } from "../pages/restaurant-list/restaurant-list";
   entryComponents: [
     MyApp,
     HomePage,
+    LoginPage,
     RestaurantDetailPage,
     RestaurantListPage
   ],
