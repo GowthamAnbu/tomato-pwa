@@ -22,7 +22,6 @@ export class RestaurantDetailPage {
     this.rsp.getRestaurantsById(res_id)
     .subscribe(data => {
       this.details = data;
-      console.log(this.details);
     }, err => {
       console.log(err);
     });

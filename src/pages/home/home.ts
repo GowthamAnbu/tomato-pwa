@@ -5,6 +5,7 @@ import { ToastController } from 'ionic-angular';
 import { HomeServiceProvider, Icity, CollectionData } from "../../providers/home-service/home-service";
 import 'rxjs/add/operator/catch';
 import { RestaurantDetailPage } from '../restaurant-detail/restaurant-detail';
+import { RestaurantListPage } from '../restaurant-list/restaurant-list';
 
 @Component({
   selector: 'page-home',
@@ -182,8 +183,13 @@ export class HomePage {
     })
   }
 
-  moveTo(res_id: number) {
-    this.navCtrl.push(RestaurantDetailPage,{res_id:res_id})
+  moveToRestaurantDetail(res_id: number) {
+    this.navCtrl.push(RestaurantDetailPage,{res_id:res_id});
+  }
+
+  moveToRestaurantList(collection_id: number) {
+    let restaurantList: Object = { collection_id:collection_id, city_id:this.city.id }
+    this.navCtrl.push(RestaurantListPage, {restaurant_list: restaurantList});
   }
 }
 

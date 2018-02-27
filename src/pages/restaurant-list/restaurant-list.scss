@@ -1,0 +1,51 @@
+page-restaurant-list {
+  .Absolute-Center {
+    width: 100%;
+    height: 100%;
+    //overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.fixed_vertical {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 101;
+    width: auto;
+    margin-left: -19px;
+    margin-top: -20px;
+}
+.custom-grid {
+    position: relative;
+    min-height: 80vh;
+    .absolute-vertical {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 101;
+        width: auto;
+        margin-left: -19px;
+        margin-top: -20px;
+    }
+}
+.homeDiv-custom {
+    max-height: 50%;
+    position: relative;
+    padding: 0 50px 50px 50px;
+    background: url("https://b.zmtcdn.com/data/res_imagery/70890_RESTAURANT_90a519da5ae78aed6fc847bfd7c19443.jpg") no-repeat;
+    background-size: cover;
+    text-align: center;
+    // .search-bar {
+    //     max-width: 60%;
+    //     position: absolute;
+    //     left: 50%;
+    //     top: 50%;
+    //     margin-left: -30%;
+    //     margin-top: -30%;
+    // }
+}
+}

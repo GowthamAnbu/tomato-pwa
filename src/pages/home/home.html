@@ -27,7 +27,7 @@
 <ion-grid class="custom-grid" *ngIf="resultedRestaurants">
   <ion-row>
     <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let resultR of resultedRestaurants">
-      <ion-card >
+      <ion-card (click)="moveToRestaurantDetail(resultR.restaurant.id)">
         <img src="{{resultR.restaurant.featured_image}}" *ngIf="resultR.restaurant.featured_image !== '';else elsecontent" />
         <ng-template #elsecontent>
           <img src="/assets/imgs/default.png"/>
@@ -57,7 +57,7 @@
       </ng-template>
       <ion-row *ngIf="restaurants; else loader">
         <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurants">
-          <ion-card (click)="moveTo(r.restaurant.id)">
+          <ion-card (click)="moveToRestaurantDetail(r.restaurant.id)">
             <img src="{{r.restaurant.featured_image}}" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
             <ng-template #elsecontent>
               <img src="/assets/imgs/default.png"/>
@@ -92,7 +92,7 @@
       </ng-template>
       <ion-row *ngIf="collections; else loader">
         <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let c of collections">
-          <ion-card>
+          <ion-card (click)="moveToRestaurantList(c.collection.collection_id)">
             <img src="{{c.collection.image_url}}" *ngIf="c.collection.image_url !== '';else elsecontent" />
             <ng-template #elsecontent>
               <img src="/assets/imgs/default.png"/>
@@ -115,8 +115,7 @@
       <ion-card>
         <!-- <img src="{{r.restaurant.featured_image}}" *ngIf="r.restaurant.featured_image !== '';else elsecontent" /> -->
         <ng-template #elsecontent>
-          no image
-          <!-- <img src="/assets/icon/favicon.ico" (click)="moveTo(r.restaurant.id)"/> -->
+            <img src="/assets/imgs/default.png"/>
         </ng-template>
         <ion-card-content>
           <ion-card-title>

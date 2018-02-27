@@ -14,7 +14,6 @@ import 'rxjs/add/operator/catch';
 export class HomeServiceProvider {
 
   constructor(public http: HttpClient) {
-    console.log('Hello HomeProvider Provider');
   }
 
   getCityDetailsByCityName(searchText: string) : Observable<Icity>{
