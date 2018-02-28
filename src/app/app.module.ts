@@ -14,6 +14,7 @@ import { RestaurantListPage } from "../pages/restaurant-list/restaurant-list";
 import { LoginPage } from "../pages/login/login";
 import { SignupPage } from "../pages/signup/signup";
 import { AuthProvider } from '../providers/auth/auth';
+import { ProfilePopOverPage } from "../pages/profile-pop-over/profile-pop-over";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AuthProvider } from '../providers/auth/auth';
     RestaurantDetailPage,
     RestaurantListPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    ProfilePopOverPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { AuthProvider } from '../providers/auth/auth';
     LoginPage,
     RestaurantDetailPage,
     RestaurantListPage,
-    SignupPage
+    SignupPage,
+    ProfilePopOverPage
   ],
   providers: [
     StatusBar,

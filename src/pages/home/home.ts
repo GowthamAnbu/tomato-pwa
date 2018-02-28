@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
 import { HomeServiceProvider, Icity, CollectionData } from "../../providers/home-service/home-service";
@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import { RestaurantDetailPage } from '../restaurant-detail/restaurant-detail';
 import { RestaurantListPage } from '../restaurant-list/restaurant-list';
 import { LoginPage } from '../login/login';
+import { ProfilePopOverPage } from '../profile-pop-over/profile-pop-over';
 
 @Component({
   selector: 'page-home',
@@ -23,10 +24,14 @@ export class HomePage {
   categories;
   resultedRestaurants: Array<any>;
   resultedSearch: string;
+  userProfile: any;
+
   constructor(
     public navCtrl: NavController,
     private hsp: HomeServiceProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    public popoverCtrl: PopoverController) {
+    this.userProfile = JSON.parse(localStorage.getItem('userProfile'));
     this.searchByCityName = '';
     this.searchByRestaurantName = '';
   }
@@ -43,6 +48,21 @@ export class HomePage {
     });
 
     toast.present();
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(ProfilePopOverPage);
+    popover.present({
+      ev: myEvent
+    });
+
+    popover.onDidDismiss( (data) => {
+      switch(data) {
+        case 1: this._moveToProfile();break;
+        case 2 : this._logout();break;
+        default: console.log('default');
+      }
+    });
   }
 
   ionViewDidLoad() {
@@ -206,6 +226,15 @@ export class HomePage {
   moveToRestaurantListByCategory(category_id: number) {
     let restaurantList: Object = { category_id:category_id, city_id:this.city.id }
     this.navCtrl.push(RestaurantListPage, {restaurant_list: restaurantList});
+  }
+
+  private _logout(){
+    localStorage.removeItem('userProfile');
+    this.navCtrl.push(LoginPage);
+  }
+
+  private _moveToProfile() {
+    console.log('edit profile');
   }
 }
 
