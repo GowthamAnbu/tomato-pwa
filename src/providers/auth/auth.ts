@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw'
 
+import { environment } from "../../environment/environment";
 @Injectable()
 export class AuthProvider {
 
@@ -15,7 +16,7 @@ export class AuthProvider {
   }
 
   login(payload: object): Observable<any> {
-    this.api_url = `http://localhost:3030/login`;
+    this.api_url = environment.apiBaseUrl + `login`;
     return this.http.post(this.api_url, payload)
     .do(data => {
       localStorage.setItem('userProfile', JSON.stringify(data));
@@ -24,7 +25,7 @@ export class AuthProvider {
   }
 
   signup(payload: object): Observable<any> {
-    this.api_url = `http://localhost:3030/register`;
+    this.api_url = environment.apiBaseUrl + `register`;
     return this.http.post(this.api_url, payload)
     .catch(this.handleError);
   }
