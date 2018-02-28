@@ -23,6 +23,12 @@ export class AuthProvider {
     .catch(this.handleError);
   }
 
+  signup(payload: object): Observable<any> {
+    this.api_url = `http://localhost:3030/register`;
+    return this.http.post(this.api_url, payload)
+    .catch(this.handleError);
+  }
+
   private handleError(err: HttpErrorResponse) {
     let error: Error;
     return Observable.throw(err);
