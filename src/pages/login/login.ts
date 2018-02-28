@@ -28,6 +28,17 @@ export class LoginPage {
     this._setFormValues();
   }
 
+  ionViewCanEnter() {
+    if ( localStorage.getItem('userProfile') !== null){
+      setTimeout(() => {
+        this.navCtrl.push(HomePage);
+      }, 0);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   isValidEmail() {
     return this.email.valid || this.email.untouched;
   }

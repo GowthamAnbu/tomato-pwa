@@ -32,6 +32,17 @@ export class SignupPage {
    this._setFormValues();
   }
 
+  ionViewCanEnter() {
+    if ( localStorage.getItem('userProfile') !== null){
+      setTimeout(() => {
+        this.navCtrl.push(LoginPage);
+      }, 0);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   isValidFirstName() {
     return this.firstName.valid || this.firstName.untouched;
   }

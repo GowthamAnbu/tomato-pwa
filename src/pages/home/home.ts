@@ -6,6 +6,7 @@ import { HomeServiceProvider, Icity, CollectionData } from "../../providers/home
 import 'rxjs/add/operator/catch';
 import { RestaurantDetailPage } from '../restaurant-detail/restaurant-detail';
 import { RestaurantListPage } from '../restaurant-list/restaurant-list';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -49,6 +50,16 @@ export class HomePage {
     this._getCategories();
   }
 
+  ionViewCanEnter() {
+    if ( localStorage.getItem('userProfile') !== null){
+      return true;
+    } else {
+      setTimeout(() => {
+        this.navCtrl.push(LoginPage);
+      }, 0);
+      return false;
+    }
+  }
 
   private _getCategories() {
     this.hsp.getCategories()

@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { RestaurantServiceProvider } from "../../providers/restaurant-service/restaurant-service";
 import { RestaurantDetailPage } from '../restaurant-detail/restaurant-detail';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-restaurant-list',
@@ -22,6 +23,17 @@ export class RestaurantListPage {
     this._getRestaurantByCategory();
     } else {
       this._getRestaurantByCollection();
+    }
+  }
+
+  ionViewCanEnter() {
+    if ( localStorage.getItem('userProfile') !== null){
+      return true;
+    } else {
+      setTimeout(() => {
+        this.navCtrl.push(LoginPage);
+      }, 0);
+      return false;
     }
   }
 
