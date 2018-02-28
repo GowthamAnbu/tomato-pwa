@@ -8,6 +8,7 @@ import { RestaurantDetailPage } from '../restaurant-detail/restaurant-detail';
 import { RestaurantListPage } from '../restaurant-list/restaurant-list';
 import { LoginPage } from '../login/login';
 import { ProfilePopOverPage } from '../profile-pop-over/profile-pop-over';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @Component({
   selector: 'page-home',
@@ -234,7 +235,7 @@ export class HomePage {
   }
 
   private _moveToProfile() {
-    console.log('edit profile');
+    this.navCtrl.push(EditProfilePage);
   }
 }
 

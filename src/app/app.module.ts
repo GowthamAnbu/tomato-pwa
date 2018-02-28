@@ -15,6 +15,7 @@ import { LoginPage } from "../pages/login/login";
 import { SignupPage } from "../pages/signup/signup";
 import { AuthProvider } from '../providers/auth/auth';
 import { ProfilePopOverPage } from "../pages/profile-pop-over/profile-pop-over";
+import { EditProfilePage } from "../pages/edit-profile/edit-profile";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProfilePopOverPage } from "../pages/profile-pop-over/profile-pop-over";
     RestaurantListPage,
     LoginPage,
     SignupPage,
-    ProfilePopOverPage
+    ProfilePopOverPage,
+    EditProfilePage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { ProfilePopOverPage } from "../pages/profile-pop-over/profile-pop-over";
         {component:LoginPage, name:'loginPage'},
         {component:SignupPage, name:'signupPage'},
         {component: RestaurantDetailPage, name: 'restaurantDetailPage', segment:'restaurantDetailPage/:res_id'},
-        {component: RestaurantListPage, name: 'restaurantListPage', segment:'restaurantListPage/:restaurant_list'}
+        {component: RestaurantListPage, name: 'restaurantListPage', segment:'restaurantListPage/:restaurant_list'},
+        {component: EditProfilePage, name:'editProfilePage'}
       ]
     })
   ],
@@ -47,7 +50,8 @@ import { ProfilePopOverPage } from "../pages/profile-pop-over/profile-pop-over";
     RestaurantDetailPage,
     RestaurantListPage,
     SignupPage,
-    ProfilePopOverPage
+    ProfilePopOverPage,
+    EditProfilePage
   ],
   providers: [
     StatusBar,
