@@ -8,7 +8,7 @@
             </div>
           </ion-col>
           <ion-col *ngIf="userProfile">
-            <button ion-button (click)="presentPopover($event)" color="light" float-right icon-end outline>
+            <button ion-button (click)="presentPopover($event)" color="light" float-right icon-end outline text-capitalize>
               {{userProfile.firstName}} {{userProfile.lastName}}
               <ion-icon name="ios-arrow-down-outline"></ion-icon>
             </button>
