@@ -17,6 +17,15 @@ import { AuthProvider } from '../providers/auth/auth';
 import { ProfilePopOverPage } from "../pages/profile-pop-over/profile-pop-over";
 import { EditProfilePage } from "../pages/edit-profile/edit-profile";
 
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { firebaseConfig } from "../environment/environment";
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import * as firebase from "firebase";
+
+firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
     MyApp,
@@ -40,7 +49,10 @@ import { EditProfilePage } from "../pages/edit-profile/edit-profile";
         {component: RestaurantListPage, name: 'restaurantListPage', segment:'restaurantListPage/:restaurant_list'},
         {component: EditProfilePage, name:'editProfilePage'}
       ]
-    })
+    }),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,7 +71,9 @@ import { EditProfilePage } from "../pages/edit-profile/edit-profile";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HomeServiceProvider,
     RestaurantServiceProvider,
-    AuthProvider
+    AuthProvider,
+    AngularFireDatabase,
+    FirebaseProvider
   ]
 })
 export class AppModule {}
