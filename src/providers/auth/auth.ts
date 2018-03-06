@@ -18,8 +18,26 @@ export class AuthProvider {
   login(payload: object): Observable<any> {
     this.api_url = environment.apiBaseUrl + `login`;
     return this.http.post(this.api_url, payload)
-    .do(data => {
+    /* .do(data => {
       localStorage.setItem('userProfile', JSON.stringify(data));
+    }) */
+    .catch(this.handleError);
+  }
+
+  loggedIn(payload: object): Observable<any> {
+    this.api_url = environment.apiBaseUrl + `loggedIn`;
+    return this.http.put(this.api_url, payload)
+    .do(data => {
+      console.log(data);
+    })
+    .catch(this.handleError);
+  }
+
+  loggedOut(payload: object): Observable<any> {
+    this.api_url = environment.apiBaseUrl + `loggedOut`;
+    return this.http.put(this.api_url, payload)
+    .do(data => {
+      console.log(data);
     })
     .catch(this.handleError);
   }

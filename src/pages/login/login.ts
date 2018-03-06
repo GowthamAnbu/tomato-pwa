@@ -5,6 +5,7 @@ import { SignupPage } from '../signup/signup';
 import { AuthProvider } from "../../providers/auth/auth";
 import { HomePage } from '../home/home';
 import { ToastController } from 'ionic-angular';
+import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 @Component({
@@ -21,7 +22,10 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private ap: AuthProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private fp: FirebaseProvider) {
+      this.fp.getPermission();
+      this.fp.receiveMessage();
   }
 
   ionViewDidLoad() {
@@ -77,16 +81,34 @@ export class LoginPage {
   }
 
   onLogin(values) {
-    if (this.login.valid) {
-      this.ap.login(values)
-      .subscribe(data => {
-        this.navCtrl.push(HomePage);
-      }, err => {
-        console.log(err.error.message);
-        this.presentToast(err.error.message, 'top');
-      });
+    let deviceToken = localStorage.getItem('token');
+    if(deviceToken){
+      if (this.login.valid) {
+        this.ap.login(values)
+        .subscribe(data => {
+          // console.log(data);
+          let payload = {
+            user_id: data.user_id,
+            token: localStorage.getItem('token')
+          }
+          this.ap.loggedIn(payload)
+          .subscribe(loggedInData => {
+            // console.log(loggedInData);
+            localStorage.setItem('userProfile', JSON.stringify(data));
+            this.navCtrl.push(HomePage);
+          }, err => {
+            console.log(err);
+            this.presentToast(err, 'top');
+          });
+        }, err => {
+          console.log(err.error.message);
+          this.presentToast(err.error.message, 'top');
+        });
+      } else {
+        this.presentToast('Please fill out the Login Form correctly', 'top');
+      }
     } else {
-      this.presentToast('Please fill out the Login Form correctly', 'top');
+      console.log('no token found');
     }
   }
 

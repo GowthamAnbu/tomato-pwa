@@ -9,6 +9,7 @@ import { RestaurantListPage } from '../restaurant-list/restaurant-list';
 import { LoginPage } from '../login/login';
 import { ProfilePopOverPage } from '../profile-pop-over/profile-pop-over';
 import { EditProfilePage } from '../edit-profile/edit-profile';
+import { AuthProvider } from "../../providers/auth/auth";
 
 @Component({
   selector: 'page-home',
@@ -31,7 +32,8 @@ export class HomePage {
     public navCtrl: NavController,
     private hsp: HomeServiceProvider,
     private toastCtrl: ToastController,
-    public popoverCtrl: PopoverController) {
+    public popoverCtrl: PopoverController,
+    private ap: AuthProvider) {
     this.userProfile = JSON.parse(localStorage.getItem('userProfile'));
     this.searchByCityName = '';
     this.searchByRestaurantName = '';
@@ -230,8 +232,25 @@ export class HomePage {
   }
 
   private _logout(){
-    localStorage.removeItem('userProfile');
-    this.navCtrl.push(LoginPage);
+    let deviceToken = localStorage.getItem('token');
+    if(deviceToken){
+      let userProfile = JSON.parse(localStorage.getItem('userProfile'));
+      let payload = {
+        user_id: userProfile.user_id,
+        token: localStorage.getItem('token')
+      }
+      this.ap.loggedOut(payload)
+      .subscribe(data => {
+        // console.log(data);
+        localStorage.removeItem('userProfile');
+        this.navCtrl.push(LoginPage);
+      }, err => {
+        console.log(err);
+        this.presentToast(err, 'top');
+      });
+    }else {
+      console.log('no token found');
+    }
   }
 
   private _moveToProfile() {
