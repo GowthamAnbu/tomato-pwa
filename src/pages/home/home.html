@@ -1,11 +1,8 @@
 <ion-content>
   <div class="homeDiv-custom">
-      <div class="search-bar">
         <ion-row>
           <ion-col class="margin:20px">
-            <div class="logo-box search-bar">
-                <img src="http://www.techaffinity.com/images/techaffinity-logo.png" />
-            </div>
+            <!-- <img src="http://www.techaffinity.com/images/techaffinity-logo.png" /> -->
           </ion-col>
           <ion-col *ngIf="userProfile">
             <button ion-button (click)="presentPopover($event)" color="light" float-right icon-end outline text-capitalize>
@@ -14,18 +11,19 @@
             </button>
           </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col col-3>
-                <ion-searchbar color="primary" [(ngModel)]="searchByCityName"></ion-searchbar>
-            </ion-col>
-            <ion-col col-7>
-                <ion-searchbar color="primary" [(ngModel)]="searchByRestaurantName"></ion-searchbar>
-            </ion-col>
-            <ion-col col-2 text-center>
-                <button ion-button (click)="search()" color="primary">Search</button>
-            </ion-col>
-        </ion-row>
-      </div>
+        <ion-grid text-center>
+          <ion-row wrap>
+              <ion-col>
+                  <ion-searchbar style="min-width:250px" color="primary" [(ngModel)]="searchByCityName"></ion-searchbar>
+              </ion-col>
+              <ion-col>
+                  <ion-searchbar style="min-width:250px" color="primary" [(ngModel)]="searchByRestaurantName"></ion-searchbar>
+              </ion-col>
+              <ion-col>
+                  <button ion-button (click)="search()" color="primary">Search</button>
+              </ion-col>
+          </ion-row>
+        </ion-grid>
   </div>
 
 <ion-row *ngIf="resultedRestaurants" >
