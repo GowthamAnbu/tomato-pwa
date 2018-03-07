@@ -11,7 +11,12 @@ export class FirebaseProvider {
   currentMessage = new BehaviorSubject(null);
 
   constructor(public http: HttpClient) {
-    console.log('Hello FirebaseProvider Provider');
+    navigator.serviceWorker.register('../../service-worker.js')
+    .then((registration) => {
+      this.messaging.useServiceWorker(registration);
+      console.log('service worker registered');
+    })
+    .catch(err => console.error('Error', err));
   }
 
   getToken() {

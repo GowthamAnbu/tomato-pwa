@@ -5,7 +5,7 @@
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "pro": "ionic cordova build browser && cp ./src/firebase-messaging-sw.js ./www",
+    "pro": "ionic cordova build browser --prod",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
