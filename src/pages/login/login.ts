@@ -5,7 +5,6 @@ import { SignupPage } from '../signup/signup';
 import { AuthProvider } from "../../providers/auth/auth";
 import { HomePage } from '../home/home';
 import { ToastController } from 'ionic-angular';
-import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 @Component({
@@ -22,10 +21,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private ap: AuthProvider,
-    private toastCtrl: ToastController,
-    private fp: FirebaseProvider) {
-      this.fp.getPermission();
-      this.fp.receiveMessage();
+    private toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {

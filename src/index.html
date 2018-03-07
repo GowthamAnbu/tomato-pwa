@@ -15,14 +15,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <!-- cordova.js required for cordova apps (remove if not needed) -->
-  <script src="cordova.js"></script>
-
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('firebase-messaging-sw.js')
-        .then(() => console.log('service worker installed'))
-        .catch(err => console.error('Error', err));
+      .then(() => console.log('service worker installed'))
+      .catch(err => console.error('Error', err));
     }
   </script>
 
