@@ -1,11 +1,11 @@
 {
-  "name": "Tomato",
+  "name": "tomato",
   "version": "0.0.1",
   "author": "Gowtham",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "pro": "ionic cordova build browser --prod && cp ./src/site.webmanifest ./www",
+    "pro": "ionic cordova build browser --prod",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
