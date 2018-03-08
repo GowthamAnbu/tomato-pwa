@@ -1,11 +1,11 @@
 {
-  "name": "ionic-pwa",
+  "name": "Tomato",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Gowtham",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "pro": "ionic cordova build browser --prod",
+    "pro": "ionic cordova build browser --prod && cp ./src/site.webmanifest ./www",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
