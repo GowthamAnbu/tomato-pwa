@@ -40,7 +40,7 @@
         </ng-template>
         <ion-card-content>
           <ion-card-title>
-            {{resultR.restaurant.name}}
+          {{resultR.restaurant.name}} - {{resultR.restaurant.location.locality}}
           </ion-card-title>
           <p>
             Cuisines:{{resultR.restaurant.cuisines}}
@@ -79,7 +79,7 @@
             </ng-template>
             <ion-card-content>
               <ion-card-title>
-                {{r.restaurant.name}}
+                {{r.restaurant.name}} - {{r.restaurant.location.locality}}
               </ion-card-title>
               <p>
                 Cuisines:{{r.restaurant.cuisines}}
