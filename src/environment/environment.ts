@@ -1,5 +1,5 @@
 export const environment = {
-  apiBaseUrl:'http://192.168.7.117:3030/'
+  apiBaseUrl:'https://pwa.techaffinity.com/'
 };
 
 export const firebaseConfig = {
