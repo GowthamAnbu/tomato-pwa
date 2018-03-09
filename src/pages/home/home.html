@@ -6,7 +6,7 @@
           </ion-col>
           <ion-col *ngIf="userProfile">
             <button ion-button (click)="presentPopover($event)" color="light" float-right icon-end outline text-capitalize>
-              {{userProfile.firstName}} {{userProfile.lastName}}
+              {{userProfile.firstName}}
               <ion-icon name="ios-arrow-down-outline"></ion-icon>
             </button>
           </ion-col>
@@ -14,20 +14,20 @@
         <ion-grid text-center>
           <ion-row wrap>
               <ion-col>
-                  <ion-searchbar style="min-width:250px" color="primary" [(ngModel)]="searchByCityName"></ion-searchbar>
+                  <ion-searchbar style="min-width:250px" [(ngModel)]="searchByCityName"></ion-searchbar>
               </ion-col>
               <ion-col>
-                  <ion-searchbar style="min-width:250px" color="primary" [(ngModel)]="searchByRestaurantName"></ion-searchbar>
+                  <ion-searchbar style="min-width:250px" [(ngModel)]="searchByRestaurantName"></ion-searchbar>
               </ion-col>
               <ion-col>
-                  <button ion-button (click)="search()" color="primary">Search</button>
+                  <button ion-button (click)="search()" color="danger">Search</button>
               </ion-col>
           </ion-row>
         </ion-grid>
   </div>
 
 <ion-row *ngIf="resultedRestaurants" >
-  Top 10 search Results for : <span [style.color]="'green'">{{resultedSearch}}</span>
+  Top 10 search Results for&nbsp;<span [style.color]="'green'">{{resultedSearch}}</span>
 </ion-row>
 
 <ion-grid class="custom-grid" *ngIf="resultedRestaurants">
@@ -51,9 +51,18 @@
   </ion-row>
 </ion-grid>
 
-  <ion-row *ngIf="restaurants && city" >
-  Restaurants by Location: <span [style.color]="'green'">{{city.name}}</span>
-  </ion-row>
+  <!-- <ion-row *ngIf="restaurants && city" >
+  Restaurants near&nbsp;<span [style.color]="'green'" text-lowercase>{{city.name}}</span>
+  </ion-row> -->
+
+  <ion-card *ngIf="restaurants && city" >
+      <ion-card-header>
+        Restaurants
+      </ion-card-header>
+      <ion-card-content>
+        Restaurant near&nbsp;<span [style.color]="'green'" text-lowercase>{{city.name}}</span>
+      </ion-card-content>
+  </ion-card>
 
   <ion-grid class="custom-grid">
       <ng-template #loader>
@@ -86,7 +95,7 @@
       Collections
     </ion-card-header>
     <ion-card-content>
-      Explore curated lists of top restaurants, cafes, pubs, and bars in and around <span [style.color]="'green'">{{city.name}}</span> , based on trends
+      Explore curated lists of top restaurants, cafes, pubs, and bars in and around <span [style.color]="'green'" text-lowercase>{{city.name}}</span> , based on trends
     </ion-card-content>
   </ion-card>
 
@@ -120,9 +129,7 @@
     <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let cat of categories">
       <ion-card (click)="moveToRestaurantListByCategory(cat.categories.id)">
         <ion-card-content>
-          <ion-card-title>
             {{cat.categories.name}}
-          </ion-card-title>
         </ion-card-content>
       </ion-card>
     </ion-col>
