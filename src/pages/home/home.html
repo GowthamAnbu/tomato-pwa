@@ -1,105 +1,121 @@
 <ion-content>
   <div class="homeDiv-custom">
-        <ion-row>
-          <ion-col class="margin:20px">
-            <!-- <img src="http://www.techaffinity.com/images/techaffinity-logo.png" /> -->
-          </ion-col>
-          <ion-col *ngIf="userProfile">
-            <button ion-button (click)="presentPopover($event)" color="light" float-right icon-end outline text-capitalize>
-              {{userProfile.firstName}}
-              <ion-icon name="ios-arrow-down-outline"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-        <ion-grid text-center>
-          <ion-row wrap>
-              <ion-col>
-                  <ion-searchbar style="min-width:250px" [(ngModel)]="searchByCityName"></ion-searchbar>
-              </ion-col>
-              <ion-col>
-                  <ion-searchbar style="min-width:250px" [(ngModel)]="searchByRestaurantName"></ion-searchbar>
-              </ion-col>
-              <ion-col>
-                  <button ion-button (click)="search()" color="danger">Search</button>
-              </ion-col>
-          </ion-row>
-        </ion-grid>
-  </div>
-
-<ion-row *ngIf="resultedRestaurants" >
-  Top 10 search Results for&nbsp;<span [style.color]="'green'">{{resultedSearch}}</span>
-</ion-row>
-
-<ion-grid class="custom-grid" *ngIf="resultedRestaurants">
-  <ion-row>
-    <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of resultedRestaurants">
-    <page-restaurantlist [restaurant]="r" (emitId)="moveToRestaurantDetail($event)" ></page-restaurantlist>
-    </ion-col>
-  </ion-row>
-</ion-grid>
-
-  <ion-card *ngIf="restaurants && city" >
-      <ion-card-header>
-        Restaurants
-      </ion-card-header>
-      <ion-card-content>
-        Restaurant near&nbsp;<span [style.color]="'green'" text-lowercase>{{city.name}}</span>
-      </ion-card-content>
-  </ion-card>
-
-  <ion-grid class="custom-grid">
-      <ng-template #loader>
-          <div class="absolute-vertical">
-              <ion-spinner class="Absolute-Center" text-center class="ios"></ion-spinner>
-          </div>
-      </ng-template>
-      <ion-row *ngIf="restaurants; else loader">
-        <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurants">
-        <page-restaurantlist [restaurant]="r" (emitId)="moveToRestaurantDetail($event)" ></page-restaurantlist>
+    <ion-row>
+      <ion-col class="margin:20px">
+        <!-- <img src="http://www.techaffinity.com/images/techaffinity-logo.png" /> -->
+      </ion-col>
+      <ion-col *ngIf="userProfile">
+        <button ion-button (click)="presentPopover($event)" color="light" float-right icon-end outline text-capitalize>
+          {{userProfile.firstName}}
+          <ion-icon name="ios-arrow-down-outline"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-grid text-center>
+      <ion-row wrap>
+        <ion-col>
+          <ion-searchbar style="min-width:250px" [(ngModel)]="searchByCityName"></ion-searchbar>
+        </ion-col>
+        <ion-col>
+          <ion-searchbar style="min-width:250px" [(ngModel)]="searchByRestaurantName"></ion-searchbar>
+        </ion-col>
+        <ion-col>
+          <button ion-button (click)="search()" color="danger">Search</button>
         </ion-col>
       </ion-row>
-  </ion-grid>
+    </ion-grid>
+  </div>
 
-  <ion-card *ngIf="city" >
+  <ion-card *ngIf="resultedRestaurants">
     <ion-card-header>
-      Collections
+      Search
     </ion-card-header>
     <ion-card-content>
-      Explore curated lists of top restaurants, cafes, pubs, and bars in and around <span [style.color]="'green'" text-lowercase>{{city.name}}</span> , based on trends
+      Top 10 search Results for&nbsp;
+      <span [style.color]="'green'">{{resultedSearch}}</span>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid class="custom-grid" *ngIf="resultedRestaurants">
+    <ion-row>
+      <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of resultedRestaurants">
+        <page-restaurantlist [restaurant]="r" (emitId)="moveToRestaurantDetail($event)"></page-restaurantlist>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card *ngIf="restaurants && city">
+    <ion-card-header>
+      Restaurants
+    </ion-card-header>
+    <ion-card-content>
+      Restaurant near&nbsp;
+      <span [style.color]="'green'" text-lowercase>{{city.name}}</span>
     </ion-card-content>
   </ion-card>
 
   <ion-grid class="custom-grid">
-      <ng-template #loader>
-          <div class="absolute-vertical">
-              <ion-spinner class="Absolute-Center" text-center class="ios"></ion-spinner>
-          </div>
-      </ng-template>
-      <ion-row *ngIf="collections; else loader">
-        <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let c of collections">
-          <ion-card (click)="moveToRestaurantListByCollection(c.collection.collection_id)">
-            <img src="{{c.collection.image_url}}" *ngIf="c.collection.image_url !== '';else elsecontent" />
-            <ng-template #elsecontent>
-              <img src="/assets/imgs/default.png"/>
-            </ng-template>
-            <ion-card-content>
-              <ion-card-title>
-                {{c.collection.title}}
-              </ion-card-title>
-              <p>
-                {{c.collection.description}}
-              </p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
+    <ng-template #loader>
+      <div class="absolute-vertical">
+        <ion-spinner class="Absolute-Center" text-center class="ios"></ion-spinner>
+      </div>
+    </ng-template>
+    <ion-row *ngIf="restaurants; else loader">
+      <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurants">
+        <page-restaurantlist [restaurant]="r" (emitId)="moveToRestaurantDetail($event)"></page-restaurantlist>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card *ngIf="city">
+    <ion-card-header>
+      Collections
+    </ion-card-header>
+    <ion-card-content>
+      Explore curated lists of top restaurants, cafes, pubs, and bars in and around
+      <span [style.color]="'green'" text-lowercase>{{city.name}}</span> , based on trends
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid class="custom-grid">
+    <ng-template #loader>
+      <div class="absolute-vertical">
+        <ion-spinner class="Absolute-Center" text-center class="ios"></ion-spinner>
+      </div>
+    </ng-template>
+    <ion-row *ngIf="collections; else loader">
+      <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let c of collections">
+        <ion-card (click)="moveToRestaurantListByCollection(c.collection.collection_id)" class="clickable">
+          <img src="{{c.collection.image_url}}" *ngIf="c.collection.image_url !== '';else elsecontent" />
+          <ng-template #elsecontent>
+            <img src="/assets/imgs/default.png" />
+          </ng-template>
+          <ion-card-content>
+            <ion-card-title>
+              {{c.collection.title}}
+            </ion-card-title>
+            <p>
+              {{c.collection.description}}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
   <ion-row *ngIf="categories; else loader">
     <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let cat of categories">
-      <ion-card (click)="moveToRestaurantListByCategory(cat.categories.id)">
+      <ion-card (click)="moveToRestaurantListByCategory(cat.categories.id)" class="clickable">
         <ion-card-content>
-            {{cat.categories.name}}
+          {{cat.categories.name}}
+          <span *ngIf="cat.categories.id !== 4;else img">
+            <img height="200px" width="200px" src="https://b.zmtcdn.com/images/search_tokens/app_icons/category_{{cat.categories.id}}.png?output-format=webp"
+            />
+          </span>
+          <ng-template #img>
+            <img height="200px" width="200px" src="https://b.zmtcdn.com/images/search_tokens/app_icons/category_14.png?output-format=webp"
+            />
+          </ng-template>
         </ion-card-content>
       </ion-card>
     </ion-col>

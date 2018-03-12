@@ -14,6 +14,14 @@ export class FirebaseProvider {
     navigator.serviceWorker.register('../../service-worker.js')
     .then((registration) => {
       this.messaging.useServiceWorker(registration);
+      registration.update()
+      .then(() =>{
+        console.log('service worker updated');
+      })
+      .catch(err => {
+        console.log(err);
+        console.log('no update available or udpate was interrupted');
+      });
       console.log('service worker registered');
     })
     .catch(err => console.error('Error', err));
@@ -44,7 +52,7 @@ export class FirebaseProvider {
         console.log('Unable to get permission to notify.', err);
       });
     } else {
-      console.log('in local storage')
+      console.log('token is already taken and is stored in local storage');
     }
   }
 

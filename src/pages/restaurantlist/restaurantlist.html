@@ -1,4 +1,4 @@
-<ion-card (click)="onClicked(restaurant.restaurant.id)">
+<ion-card (click)="onClicked(restaurant.restaurant.id)" class="clickable">
   <img src="{{restaurant.restaurant.featured_image}}" *ngIf="restaurant.restaurant.featured_image !== '';else elsecontent" />
   <ng-template #elsecontent>
     <img src="/assets/imgs/default.png"/>
