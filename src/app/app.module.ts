@@ -24,6 +24,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebaseConfig } from "../environment/environment";
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import * as firebase from "firebase";
+import { UserProvider } from '../providers/user/user';
 
 firebase.initializeApp(firebaseConfig);
 @NgModule({
@@ -75,7 +76,8 @@ firebase.initializeApp(firebaseConfig);
     RestaurantServiceProvider,
     AuthProvider,
     AngularFireDatabase,
-    FirebaseProvider
+    FirebaseProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

@@ -7,6 +7,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw'
 
 import { environment } from "../../environment/environment";
+
 @Injectable()
 export class AuthProvider {
 
