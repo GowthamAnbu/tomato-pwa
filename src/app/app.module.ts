@@ -16,7 +16,7 @@ import { SignupPage } from "../pages/signup/signup";
 import { AuthProvider } from '../providers/auth/auth';
 import { ProfilePopOverPage } from "../pages/profile-pop-over/profile-pop-over";
 import { EditProfilePage } from "../pages/edit-profile/edit-profile";
-
+import { RestaurantlistPage } from "../pages/restaurantlist/restaurantlist";
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
@@ -35,7 +35,8 @@ firebase.initializeApp(firebaseConfig);
     LoginPage,
     SignupPage,
     ProfilePopOverPage,
-    EditProfilePage
+    EditProfilePage,
+    RestaurantlistPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +64,8 @@ firebase.initializeApp(firebaseConfig);
     RestaurantListPage,
     SignupPage,
     ProfilePopOverPage,
-    EditProfilePage
+    EditProfilePage,
+    RestaurantlistPage
   ],
   providers: [
     StatusBar,

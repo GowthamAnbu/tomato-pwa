@@ -1,0 +1,14 @@
+<ion-card (click)="onClicked(restaurant.restaurant.id)">
+  <img src="{{restaurant.restaurant.featured_image}}" *ngIf="restaurant.restaurant.featured_image !== '';else elsecontent" />
+  <ng-template #elsecontent>
+    <img src="/assets/imgs/default.png"/>
+  </ng-template>
+  <ion-card-content>
+    <ion-card-title>
+    {{restaurant.restaurant.name}} - {{restaurant.restaurant.location.locality}}
+    </ion-card-title>
+    <p>
+      Cuisines:{{restaurant.restaurant.cuisines}}
+    </p>
+  </ion-card-content>
+</ion-card>

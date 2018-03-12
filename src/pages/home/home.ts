@@ -37,6 +37,7 @@ export class HomePage {
     this.userProfile = JSON.parse(localStorage.getItem('userProfile'));
     this.searchByCityName = '';
     this.searchByRestaurantName = '';
+    this.resultedRestaurants = undefined;
   }
 
   presentToast(message: string, position: string) {
@@ -94,7 +95,6 @@ export class HomePage {
   }
 
   search() {
-    this.resultedRestaurants = undefined;
     if(this.searchByCityName !== '' || this.searchByRestaurantName !== '') {
       if ( this.searchByCityName !== '' && this.searchByRestaurantName !== '') {
         console.log('city name and restaurant name');

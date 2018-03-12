@@ -1,9 +1,7 @@
 <ion-header>
-
   <ion-navbar color="danger">
     <ion-title>List of Restaurants</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -17,20 +15,7 @@
     </ng-template>
     <ion-row *ngIf="restaurantList; else loader">
       <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let r of restaurantList">
-        <ion-card (click)="moveToRestaurantDetail(r.restaurant.id)">
-          <img src="{{r.restaurant.featured_image}}" *ngIf="r.restaurant.featured_image !== '';else elsecontent" />
-          <ng-template #elsecontent>
-            <img src="/assets/imgs/default.png"/>
-          </ng-template>
-          <ion-card-content>
-            <ion-card-title>
-              {{r.restaurant.name}}
-            </ion-card-title>
-            <p>
-              Cuisines:{{r.restaurant.cuisines}}
-            </p>
-          </ion-card-content>
-        </ion-card>
+      <page-restaurantlist [restaurant]="r" (emitId)="moveToRestaurantDetail($event)" ></page-restaurantlist>
       </ion-col>
     </ion-row>
   </ion-grid>
