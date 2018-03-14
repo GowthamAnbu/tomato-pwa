@@ -16,12 +16,13 @@ export class LoginPage {
   login: FormGroup;
   email: FormControl;
   password: FormControl;
-
+  loginDisable: Boolean;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private ap: AuthProvider,
     private toastCtrl: ToastController) {
+      this.loginDisable = false;
   }
 
   ionViewDidLoad() {
@@ -77,9 +78,10 @@ export class LoginPage {
   }
 
   onLogin(values) {
-    let deviceToken = localStorage.getItem('token');
-    if(deviceToken){
+    // let deviceToken = localStorage.getItem('token');
+    // if(deviceToken){
       if (this.login.valid) {
+        this.loginDisable = true;
         this.ap.login(values)
         .subscribe(data => {
           // console.log(data);
@@ -87,7 +89,9 @@ export class LoginPage {
             user_id: data.user_id,
             token: localStorage.getItem('token')
           }
-          this.ap.loggedIn(payload)
+          this.loginDisable = false;
+          this.navCtrl.push(HomePage);
+          /* this.ap.loggedIn(payload)
           .subscribe(loggedInData => {
             // console.log(loggedInData);
             localStorage.setItem('userProfile', JSON.stringify(data));
@@ -95,17 +99,18 @@ export class LoginPage {
           }, err => {
             console.log(err);
             this.presentToast(err, 'top');
-          });
+          }); */
         }, err => {
+          this.loginDisable = false;
           console.log(err.error.message);
           this.presentToast(err.error.message, 'top');
         });
       } else {
         this.presentToast('Please fill out the Login Form correctly', 'top');
       }
-    } else {
-      console.log('no token found');
-    }
+    // } else {
+    //   console.log('no token found');
+    // }
   }
 
   onSignup() {
