@@ -1,5 +1,7 @@
 'use strict';
 importScripts('./build/sw-toolbox.js');
+importScripts('./build/idb.js');
+importScripts('./build/store.js');
 
 self.toolbox.options.cache = {
   name: 'ionic-cache'
@@ -55,3 +57,23 @@ messaging.setBackgroundMessageHandler(function (payload) {
   return self.registration.showNotification(notificationTitle,
     notificationOptions);
 });
+
+// Background Sync
+self.addEventListener('sync', function (event) {
+  console.log('inside sync');
+  if (event.tag == 'user_profile') {
+    event.waitUntil(getuserDetails());
+  } else {
+    console.log('else block');
+  }
+});
+
+function getuserDetails() {
+  store.user_profile('readonly').then(function(_user_profile) {
+    return _user_profile.getAll();
+  })
+  .then(function(item) {
+    console.log(item);
+  })
+  .catch(function(err) { console.error(err); })
+}
