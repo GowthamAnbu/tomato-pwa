@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { AuthProvider } from "../../providers/auth/auth";
 import { HomePage } from '../home/home';
@@ -17,16 +17,21 @@ export class LoginPage {
   email: FormControl;
   password: FormControl;
   loginDisable: Boolean;
+  loader;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private ap: AuthProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    public loading: LoadingController) {
       this.loginDisable = false;
   }
 
   ionViewDidLoad() {
     this._setFormValues();
+    this.loader = this.loading.create({
+      content: 'loading',
+    });
   }
 
   ionViewCanEnter() {
@@ -82,13 +87,15 @@ export class LoginPage {
     // if(deviceToken){
       if (this.login.valid) {
         this.loginDisable = true;
+        this.loader.present();
         this.ap.login(values)
         .subscribe(data => {
+          this.loginDisable = false;
+          this.loader.dismiss();
           let payload = {
             user_id: data.user_id,
             token: localStorage.getItem('token')
           }
-          this.loginDisable = false;
           this.ap.loggedIn(payload)
           .subscribe(loggedInData => {
             localStorage.setItem('userProfile', JSON.stringify(data));
@@ -99,6 +106,7 @@ export class LoginPage {
           });
         }, err => {
           this.loginDisable = false;
+          this.loader.dismiss();
           console.log(err.error.message);
           this.presentToast(err.error.message, 'top');
         });
