@@ -232,7 +232,9 @@ export class HomePage {
   }
 
   private _logout(){
-    let deviceToken = localStorage.getItem('token');
+    localStorage.removeItem('userProfile');
+    this.navCtrl.push(LoginPage);
+    /* let deviceToken = localStorage.getItem('token');
     if(deviceToken){
       let userProfile = JSON.parse(localStorage.getItem('userProfile'));
       let payload = {
@@ -250,7 +252,7 @@ export class HomePage {
       });
     }else {
       console.log('no token found');
-    }
+    } */
   }
 
   private _moveToProfile() {
