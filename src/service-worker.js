@@ -72,8 +72,30 @@ function getuserDetails() {
   store.user_profile('readonly').then(function(_user_profile) {
     return _user_profile.getAll();
   })
-  .then(function(item) {
-    console.log(item);
+  .then(function(jsonObjs) {
+    return Promise.all(jsonObjs.map(function(_user) {
+      let payload = _user.payload;
+      let _url = `https://pwa.techaffinity.com/updateUser/${_user._id}`;
+      return fetch(_url, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        if (data.success === 1) {
+          return store.user_profile('readwrite').then(function(_user_profile) {
+            return _user_profile.delete(_user._id);
+          });
+        }else {
+          console.log('err in database');
+        }
+      })
+    }));
   })
   .catch(function(err) { console.error(err); })
 }

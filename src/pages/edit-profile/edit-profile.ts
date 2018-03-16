@@ -167,7 +167,7 @@ export class EditProfilePage {
       let up_store = up_tx.objectStore('user_profile');
       let item = {
         _id:_id,
-        updateData: formValues
+        payload: formValues
       };
       up_store.add(item);
       return up_tx.complete;
