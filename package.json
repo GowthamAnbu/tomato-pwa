@@ -59,5 +59,8 @@
     "platforms": [
       "browser"
     ]
+  },
+  "config": {
+    "ionic_copy": "./config/copy.config.js"
   }
 }

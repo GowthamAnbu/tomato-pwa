@@ -1,7 +1,7 @@
 'use strict';
 importScripts('./build/sw-toolbox.js');
-importScripts('./build/idb.js');
-importScripts('./build/store.js');
+importScripts('./js/idb.js');
+importScripts('./js/store.js');
 
 self.toolbox.options.cache = {
   name: 'ionic-cache'
