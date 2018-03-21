@@ -7,6 +7,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class FirebaseProvider {
 
+public sw = new BehaviorSubject(null);
+
   messaging = firebase.messaging();
   currentMessage = new BehaviorSubject(null);
 
@@ -14,6 +16,7 @@ export class FirebaseProvider {
     navigator.serviceWorker.register('../../service-worker.js')
     .then((registration) => {
       this.messaging.useServiceWorker(registration);
+      this.sw.next(registration);
       registration.update()
       .then(() =>{
         console.log('service worker updated');
