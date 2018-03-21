@@ -97,5 +97,31 @@ function getuserDetails() {
       })
     }));
   })
+  .then(function() {
+    return self.registration.showNotification("Profile updates",{
+      "body": "Hurray ! You Profile Details are updated",
+      "icon":"/assets/icon/android-chrome-256x256.png",
+      actions: [
+        {action: 'open', title: '👍open'},
+        {action: 'close', title: '⤻ close'}
+      ]
+    });
+  })
   .catch(function(err) { console.error(err); })
 }
+
+self.addEventListener('notificationclick', function(event) {
+  var messageId = event.notification.data;
+
+  event.notification.close();
+
+  if (event.action === 'open') {
+    clients.openWindow("https://tomato-567.firebaseapp.com/");
+  }
+  else if (event.action === 'close') {
+    return
+  }
+  else {
+    clients.openWindow("https://tomato-567.firebaseapp.com/");
+  }
+}, false);
